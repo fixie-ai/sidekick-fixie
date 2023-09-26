@@ -6,8 +6,7 @@ import {
 import { FixieCorpus } from "ai-jsx/batteries/docs";
 import { Sidekick } from "ai-jsx/sidekick";
 
-//TODO: Replace with your Fixie Corpus ID
-const FIXIE_CORPUS_ID: string = undefined;
+const FIXIE_CORPUS_ID: string = '3a68874a-1363-419f-adff-1732550c4f20';
 
 if (!FIXIE_CORPUS_ID) {
   throw new Error("Please set a FIXIE_CORPUS_ID in src/index.tsx");
@@ -16,40 +15,22 @@ if (!FIXIE_CORPUS_ID) {
 const systemMessage = <YourSidekickSystemMessage />;
 
 const tools: Record<string, Tool> = {
-  // TODO: To help the model understand when to call this tool, name the function
-  // something more descriptive like 'lookUpAcmeCompanyKnowledgeBase'.
-  // For more tips on using Tools, see: https://docs.ai-jsx.com/tutorial/part7-tools
-  lookUpKnowledgeBase: FixieCorpus.createTool(
+  lookUpFixieKnowledgeBase: FixieCorpus.createTool(
     FIXIE_CORPUS_ID,
-    "A tool for looking additional information to help answer the user query."
+    "A tool for retrieving information on Fixie and Sidekicks to help answer the user query."
   ),
-  /*
-  anotherPossibleTool: {
-    description:
-      "Another tool, possibly for calling out to an API",
-    parameters: {
-      query: {
-        description:
-          "A parameter for the tool",
-        type: "string",
-        required: true,
-      },
-    },
-    func: async ({ query }) => {
-      return "Hello, world! Your query was: {query}"
-    },
-  }
-  */
 };
 
 export default function SidekickTemplate() {
   return (
     <Sidekick
       // TODO: Give the Sidekick a descriptive role like "A helpful assistant for Acme Company".
-      role="A helpful assistant"
+      role='You are Foxie, the sidekick for the Fixie service. You help people develop their own AI Sidekicks on Fixie
+            by answering software engineering questions, and you like to sprinkle in a 🦊 emoji and a little humor from time to time.'
       systemMessage={systemMessage}
       tools={tools}
       finalSystemMessageBeforeResponse={finalSystemMessageBeforeResponse}
     />
   );
 }
+
